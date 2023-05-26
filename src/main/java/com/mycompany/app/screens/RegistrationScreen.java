@@ -12,15 +12,38 @@ public class RegistrationScreen implements IScreen {
     @Override
     public void start(Scanner scan) {
         String username = "";
-        String password;
+        String password = "";
         System.out.println("press x and hit enter to cancel at anytime");
+        exit: {
         while(username.isEmpty()){
             username = getUsername(scan);
             if(username == "x"){
-                break;
+                break exit;
             }
         }
-        System.out.println("new Username = " + username);
+        while(password.isEmpty()){
+            password = getPassword(scan);
+            if(password == "x"){
+                break exit;
+            }
+        }
+        System.out.println("Please confirm your credentials:");
+                System.out.println("\nUsername: " + username);
+                System.out.println("Password: " + password);
+                System.out.print("\nEnter y to confirm or any other key to NOT confirm: ");
+
+                switch (scan.nextLine()) {
+                    case "y":
+                        userService.register(username, password);
+                        System.out.print("\nCredentials saved!");
+                        break exit;
+                    default:
+                        System.out.print("\nCredentials NOT saved!");
+                        // System.out.print("\nPress enter to continue...");
+                        // scan.nextLine();
+                        break exit;
+                }
+            }
     }
 
     private String getUsername(Scanner scan){
@@ -43,7 +66,28 @@ public class RegistrationScreen implements IScreen {
             return "";
             }
     }
-    // private String getPassword(){
+    private String getPassword(Scanner scan){
+        String password;
+        System.out.println("Password needs to be minimum 8 characters, at least 1 letter and 1 number");
+        System.out.print("Enter new password: ");
+        password = scan.nextLine();
+        System.out.println();
 
-    // }
+        if(password.equalsIgnoreCase("x")) {
+            return "x";
+        }
+        if(userService.isValidPassword(password)){
+            System.out.print("Confirm password: ");
+            String confirmPassword = scan.nextLine();
+            System.out.println();
+            if(userService.isSamePassword(password, confirmPassword)){
+                return password;
+            } else {
+                System.out.println("password does not match!");
+                return "";
+            }
+        } else {
+            return "";
+        }
+    }
 }

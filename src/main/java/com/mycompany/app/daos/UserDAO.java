@@ -12,8 +12,26 @@ public class UserDAO implements CrudDAO<User> {
 
     @Override
     public void save(User obj) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "INSERT INTO users (id, username, password) VALUES (?, ?, ?)";
+
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                // Set values for prepared statement parameters
+                ps.setString(1, obj.getId());
+                ps.setString(2, obj.getUsername());
+                ps.setString(3, obj.getPassword());
+
+                // Execute the SQL statement
+                ps.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Unable to connect to the database", e);
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot find application.properties", e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Unable to load JDBC driver", e);
+        }
     }
 
     @Override
