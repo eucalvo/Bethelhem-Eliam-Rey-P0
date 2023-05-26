@@ -9,25 +9,30 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class UserService {
-    private final UserDAO userDao;
-    public boolean isValidUsername(String username){
-        return username.matches("^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$");
-    }
-    public boolean isUniqueUsername(String username){
-        Optional<User> userOpt = userDao.findByUsername(username);
+  private final UserDAO userDao;
 
-        return userOpt.isEmpty();
-    }
-    public boolean isValidPassword(String password) {
-        return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
-    }
-    public boolean isSamePassword(String password, String confirmPassword) {
-        return password.equals(confirmPassword);
-    }
-    public User register(String username, String password) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        User newUser = new User(username, hashedPassword);
-        userDao.save(newUser);
-        return newUser;
-    }
+  public boolean isValidUsername(String username) {
+    return username.matches("^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$");
+  }
+
+  public boolean isUniqueUsername(String username) {
+    Optional<User> userOpt = userDao.findByUsername(username);
+
+    return userOpt.isEmpty();
+  }
+
+  public boolean isValidPassword(String password) {
+    return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
+  }
+
+  public boolean isSamePassword(String password, String confirmPassword) {
+    return password.equals(confirmPassword);
+  }
+
+  public User register(String username, String password) {
+    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+    User newUser = new User(username, hashedPassword);
+    userDao.save(newUser);
+    return newUser;
+  }
 }
