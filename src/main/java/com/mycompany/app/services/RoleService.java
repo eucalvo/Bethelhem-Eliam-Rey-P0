@@ -10,19 +10,18 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class RoleService {
-    private final RoleDAO roleDao;
+  private final RoleDAO roleDao;
 
-    /**
-     * Finds a role by its name.
-     *
-     * @param name the name of the role to find
-     * @return the Role object with the specified name
-     * @throws CustomRoleNotFoundException if the role with the specified name is not
-     *                               found
-     */
-    public Role findByName(String name) throws CustomRoleNotFoundException {
-        Optional<Role> roleOpt = roleDao.findByName(name);
+  /**
+   * Finds a role by its name.
+   *
+   * @param name the name of the role to find
+   * @return the Role object with the specified name
+   * @throws CustomRoleNotFoundException if the role with the specified name is not found
+   */
+  public Role findByName(String name) throws CustomRoleNotFoundException {
+    Optional<Role> roleOpt = roleDao.findByName(name);
 
-        return roleOpt.orElseThrow(CustomRoleNotFoundException::new);
-    }
+    return roleOpt.orElseThrow(CustomRoleNotFoundException::new);
+  }
 }

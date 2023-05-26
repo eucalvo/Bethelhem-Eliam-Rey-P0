@@ -12,6 +12,7 @@ import java.util.UUID;
 @ToString
 public class User {
   public User() {}
+
   private String password;
   private String username;
   private String id;

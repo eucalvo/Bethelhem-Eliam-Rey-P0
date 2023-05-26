@@ -9,9 +9,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
 public class Role {
-    public Role(){}
-    private String id;
-    private String name;  
+  public Role() {}
+
+  private String id;
+  private String name;
 }
