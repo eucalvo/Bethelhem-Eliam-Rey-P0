@@ -43,7 +43,7 @@ public class ReviewDAO implements CrudDAO<Review> {
     public List<Review> findAllReviewsSameProductId(String product_id) {
         List<Review> reviews = new ArrayList<Review>();
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-          String sql = "SELECT * FROM products WHERE product_id = (?)";
+          String sql = "SELECT * FROM reviews WHERE product_id = (?)";
           PreparedStatement preparedStatement = conn.prepareStatement(sql);
           preparedStatement.setString(1, product_id);
           ResultSet rs = preparedStatement.executeQuery();
