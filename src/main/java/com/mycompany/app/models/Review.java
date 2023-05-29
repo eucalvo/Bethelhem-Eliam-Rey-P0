@@ -8,10 +8,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Review {
-    public Review(){}
-    String review_id;
-    String product_id;
-    String username;
-    String message;
-    int rating;
+  public Review() {}
+
+  String review_id;
+  String product_id;
+  String username;
+  String message;
+  int rating;
 }

@@ -9,8 +9,9 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class ReviewService {
-    private final ReviewDAO reviewDAO;
-    public List<Review> getAllReviewsSameId(String id) {
-        return reviewDAO.findAllReviewsSameProductId(id);
-    }
+  private final ReviewDAO reviewDAO;
+
+  public List<Review> getAllReviewsSameId(String id) {
+    return reviewDAO.findAllReviewsSameProductId(id);
+  }
 }
