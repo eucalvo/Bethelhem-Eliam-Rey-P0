@@ -1,6 +1,5 @@
 package com.mycompany.app.services;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import org.mindrot.jbcrypt.BCrypt;
