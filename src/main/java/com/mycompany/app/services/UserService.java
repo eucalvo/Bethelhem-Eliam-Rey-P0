@@ -10,26 +10,29 @@ import com.mycompany.app.models.User;
 import com.mycompany.app.utils.BcryptGensaltSource;
 import com.mycompany.app.utils.UuidSource;
 
-
 public class UserService {
   private final UserDAO userDao;
   private final RoleService roleService;
   private UuidSource uuidSource = UuidSource.random();
   private BcryptGensaltSource bcryptGensaltSource = BcryptGensaltSource.defaultGensalt();
 
-  public UserService (UserDAO userDAO, RoleService roleService){
+  public UserService(UserDAO userDAO, RoleService roleService) {
     this.roleService = roleService;
     this.userDao = userDAO;
   }
 
-  protected UserService (UserDAO userDAO, RoleService roleService, UuidSource uuidSource, BcryptGensaltSource bcryptGensaltSource) {
+  protected UserService(
+      UserDAO userDAO,
+      RoleService roleService,
+      UuidSource uuidSource,
+      BcryptGensaltSource bcryptGensaltSource) {
     this.uuidSource = uuidSource;
     this.userDao = userDAO;
     this.roleService = roleService;
     this.bcryptGensaltSource = bcryptGensaltSource;
   }
 
-  public UUID getUuid(){
+  public UUID getUuid() {
     return uuidSource.getUuid();
   }
 
