@@ -44,12 +44,11 @@ public class UserServiceTest {
   public void testIsUniqueUsername() {
     UserService userService = new UserService(userDAO, null);
     Mockito.when(userDAO.findByUsername("terry007"))
-        .thenReturn(
-            Optional.of(new User("terry007", "passw0rd", "USER", UuidSource.random().getUuid())));
+        .thenReturn(new User("terry007", "passw0rd", "USER", UuidSource.random().getUuid()));
     Assert.assertFalse(userService.isUniqueUsername("terry007"));
     // verify that the mocked function was called
     Mockito.verify(userDAO).findByUsername("terry007");
-    Mockito.when(userDAO.findByUsername("terry006")).thenReturn(Optional.empty());
+    Mockito.when(userDAO.findByUsername("terry006")).thenReturn(null);
     Assert.assertTrue(userService.isUniqueUsername("terry006"));
     Mockito.verify(userDAO).findByUsername("terry006");
   }
