@@ -1,7 +1,8 @@
 name: Java CI
 
-on: [push]
-
+on: [push, pull_request]
+ # The "Build with Maven" step runs the Maven package target in non-interactive mode to
+ # ensure that your code builds, tests pass, and a package can be created.
 jobs:
   build:
     runs-on: ubuntu-latest
